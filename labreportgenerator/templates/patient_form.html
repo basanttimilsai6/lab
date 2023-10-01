@@ -1,0 +1,79 @@
+<div class="form-group row">
+    <label for="{{ patient_form.level.id_for_label }}" class="col-md-3 col-form-label">Level:</label>
+    <div class="col-md-9">
+        {{ patient_form.level }}
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="{{ patient_form.name.id_for_label }}" class="col-md-3 col-form-label">
+        Name:
+    </label>
+    <div class="col-md-9">
+        {{ patient_form.name }}
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="{{ patient_form.sex.id_for_label }}" class="col-md-3 col-form-label">Sex:</label>
+    <div class="col-md-9">
+        {{ patient_form.sex }}
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="{{ patient_form.age.id_for_label }}" class="col-md-3 col-form-label">Age:</label>
+    <div class="col-md-9">
+        {{ patient_form.age }}
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="{{ patient_form.age_time.id_for_label }}" class="col-md-3 col-form-label">Age Time:</label>
+    <div class="col-md-9">
+        {{ patient_form.age_time }}
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="{{ patient_form.address.id_for_label }}" class="col-md-3 col-form-label">Address:</label>
+    <div class="col-md-9">
+        {{ patient_form.address }}
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="{{ patient_form.email.id_for_label }}" class="col-md-3 col-form-label">Email:</label>
+    <div class="col-md-9">
+        {{ patient_form.email }}
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="{{ patient_form.phone.id_for_label }}" class="col-md-3 col-form-label">Phone:</label>
+    <div class="col-md-9">
+        {{ patient_form.phone }}
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="{{ patient_form.refer_hospital.id_for_label }}" class="col-md-3 col-form-label">Refer Hospital:</label>
+    <div class="col-md-9">
+        {{ patient_form.refer_hospital }}
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="{{ patient_form.nhpc.id_for_label }}" class="col-md-3 col-form-label">NHPC NO:</label>
+    <div class="col-md-9">
+        {{ patient_form.nhpc }}
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="{{ patient_form.custom_date.id_for_label }}" class="col-md-3 col-form-label">Date:</label>
+    <div class="col-md-9">
+        {{ patient_form.custom_date }}
+    </div>
+</div>
+<span class="error-message" style="color: red;">{{ patient_form.custom_date.errors }}</span>

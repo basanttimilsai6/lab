@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Create Hospital</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Hospital</h2>
+                {{c_form_form.as_p}}
+            </div>
+        </div>
+
+        <button type="submit" id="color-changing-button" class="btn btn-outline-primary" >Submit</button>
+    </form>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,41 @@
+
+        <div class="form-group row">
+            <label for="{{ test_form.bt.id_for_label }}" class="col-md-3 col-form-label">BT:</label>
+            <div class="col-md-9">
+                {{ test_form.bt }}
+                <small class="form-text text-muted">(2-7) Min</small>
+            </div>
+        </div>
+
+        <!-- Add CT field -->
+        <div class="form-group row">
+            <label for="{{ test_form.ct.id_for_label }}" class="col-md-3 col-form-label">CT:</label>
+            <div class="col-md-9">
+                {{ test_form.ct }}
+                <small class="form-text text-muted">(5-11) Min</small>
+            </div>
+        </div>
+
+        <!-- Add RDT for MP field -->
+        <div class="form-group row">
+            <label for="{{ test_form.rdt_for_mp.id_for_label }}" class="col-md-3 col-form-label">RDT for MP:</label>
+            <div class="col-md-9">
+                {{ test_form.rdt_for_mp }}
+            </div>
+        </div>
+
+        <!-- Add Blood Group ABO Typing field -->
+        <div class="form-group row">
+            <label for="{{ test_form.blood_group_abo_typing.id_for_label }}" class="col-md-3 col-form-label">Blood Group ABO Typing:</label>
+            <div class="col-md-9">
+                {{ test_form.blood_group_abo_typing }}
+            </div>
+        </div>
+
+        <!-- Add Blood Group RH field -->
+        <div class="form-group row">
+            <label for="{{ test_form.blood_group_rh.id_for_label }}" class="col-md-3 col-form-label">Blood Group RH:</label>
+            <div class="col-md-9">
+                {{ test_form.blood_group_rh }}
+            </div>
+        </div>

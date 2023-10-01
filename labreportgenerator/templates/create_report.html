@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Create Report</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-md-6 my-4">
+                <h2>Hematology</h2>
+                {% include "hematology_form.html" %}
+            </div>
+            <div class="col-md-6 my-4">
+                <h2>Patient Information</h2>
+                {% include "patient_form.html" %}
+            </div>
+            <div class="col-md-6 my-4">
+                <h2>Biochemistry</h2>
+                {% include "biochemistry_form.html" %}
+            </div>
+
+            <div class="col-md-6 my-4">
+                <h2>Stool Test</h2>
+                {% include "stool_form.html" %}
+            </div>
+
+
+            <div class="col-md-6 my-4">
+                <h2>Liver Test</h2>
+                {% include "liver_form.html" %}
+            </div>
+
+            <div class="col-md-6 my-4">
+                <h2>Urine Test</h2>
+                {% include "urine_form.html" %}
+            </div>
+
+            <div class="col-md-6 my-4">
+                <h2>Widal Test</h2>
+                {% include "widal_test.html" %}
+            </div>
+
+            <div class="col-md-6 my-4">
+                <h2>Ectra Test</h2>
+                {% include "test_form.html" %}
+            </div>
+
+            <div class="col-md-6 my-4">
+                <h2>Lipid Test</h2>
+                {% include "lipid_form.html" %}
+            </div>
+            <div class="col-md-6 my-4">
+                <h2>Serology Test</h2>
+                {% include "sero_form.html" %}
+            </div>
+        </div>
+
+        <button type="submit" id="color-changing-button" class="btn btn-outline-primary mb-4 text-dark font-weight-bold w-100" >Submit</button>
+    </form>
+</div>
+
+<script>
+    // Array of colors to cycle through
+    const colors = ["btn-primary", "btn-success", "btn-danger", "btn-warning"];
+
+    let currentColorIndex = 0;
+    const colorChangingButton = document.getElementById("color-changing-button");
+
+    // Function to change the button's color
+    function changeButtonColor() {
+        // Remove the previous color class
+        colorChangingButton.classList.remove(colors[currentColorIndex]);
+
+        // Increment the color index
+        currentColorIndex = (currentColorIndex + 1) % colors.length;
+
+        // Apply the new color class
+        colorChangingButton.classList.add(colors[currentColorIndex]);
+    }
+
+    // Change the button's color every second
+    setInterval(changeButtonColor, 1000);
+</script>
+
+{% endblock content %}
+
+
+<!-- display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* 100% of viewport height to center vertically */
+    } -->

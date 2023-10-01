@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Detail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Define your CSS styles here */
+        @page {
+            size: A4;
+            margin-top: 1.7in;
+            margin-bottom: 1.3in;
+            margin-left: 0.6in;
+            margin-right: 0.6in;
+        }
+
+        body {
+            font-family: Cambria, serif;
+            font-size: 12px; /* Roughly equivalent to 11 points */
+        }
+        body {
+            text-align: center;
+        }
+        h2 {
+            margin: 0 auto;
+            width: 50%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table {
+            margin: 0 auto;
+        }
+
+        th {
+            border-top:solid #000; /* Solid black border for the top of the cell */
+            border-bottom:solid #000; /* Solid black border for the bottom of the cell */
+            padding-top: 2px; /* Add padding to th elements for spacing */
+            text-align: left;
+        }
+
+        th.test-name,
+        th.value,
+        th.unit,
+        th.reference-range {
+            border: 1px solid #000;
+        }
+
+        td {
+            padding:0;
+            text-align: left;
+        }
+
+        td.out-of-range {
+            color: red;
+            font-weight: bold;
+        }
+        hr {
+            margin: 1; /* Remove margin */
+            padding: 0; /* Remove padding */
+            border: none;
+            border-top: 1px solid #000; /* Set the border to solid and color to black (#000) */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <hr>
+        <table>
+            <tp>
+                <td><p><strong>Name:</strong> {{ report.patient.name|upper }}</p></td>
+                <td> </td>
+                <td><p><strong>Age/Sex:</strong> {{ report.patient.age|upper }}{{ report.patient.age_time|upper }}/{{ report.patient.sex|upper }}</p></td>
+            </tr>
+            <tr>
+                <td><p><strong>Address:</strong> {{ report.patient.address|upper }}</p></td>
+                <td> </td>
+                <td><p><strong>Date of collection:</strong> {{ report.patient.custom_date|upper }}</p></td>
+            </tr>
+            <tr>
+                <td><p><strong>Ref.By::</strong> {{ report.patient.refer_hospital.name|upper }}</p></td>
+                <td> </td>
+                <td><p><strong>Date of reporting:</strong> {{ report.patient.custom_date|upper }}</p></td>
+            </tr>
+        </table>
+                    
+        <hr>
+        
+        
+
+        {% if report.bio.sugar_f or report.bio.sugar_pp or report.bio.sugar_r or report.bio.serum_urea or report.bio.creatine or report.bio.uric_acid or report.bio.s_calcium %}
+    <h2><u>BIO-CHEMISTRY</u></h2>
+    <table>
+        <tr>
+            <th scope="col">Test Name</th>
+            <th></th>
+            <th scope="col">Value</th>
+            <th scope="col">Unit</th>
+            <th scope="col">Reference Range</th>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        {% if report.bio.sugar_f%}
+            <tr>
+                <td>SUGAR F</td>
+                <td></td>
+                {% if report.bio.sugar_f >= 60 and report.bio.sugar_f <= 100 %}
+                    <td>{{ report.bio.sugar_f }}</td>
+                {% else %}
+                <td><b>{{ report.bio.sugar_f }}</b></td>
+                {% endif %}
+                <td>mg/dl</td>
+                <td>60-110</td>
+            </tr>
+        {% endif %}
+        {% if report.bio.sugar_pp %}
+            <tr>
+                <td>SUGAR PP</td>
+                <td></td>
+                {% if report.bio.sugar_pp >= 70 and report.bio.sugar_pp <= 140 %}
+                    <td>{{ report.bio.sugar_pp }}</td>
+                {% else %}
+                <td><b>{{ report.bio.sugar_pp }}</b></td>
+                {% endif %}
+                <td>mg/dl</td>
+                <td>70-140</td>
+            </tr>
+        {% endif %}
+        {% if report.bio.sugar_r %}
+            <tr>
+                <td>SUGAR R</td>
+                <td></td>
+                {% if report.bio.sugar_pp >= 70 and report.bio.sugar_pp <= 140 %}
+                    <td>{{ report.bio.sugar_r }}</td>
+                {% else %}
+                <td><b>{{ report.bio.sugar_r }}</b></td>
+                {% endif %}
+                <td>mg/dl</td>
+                <td>70-140</td>
+            </tr>
+        {% endif %}
+        {% if report.bio.serum_urea %}
+            <tr>
+                <td>S. UREA</td>
+                <td></td>
+                {% if report.bio.serum_urea >= 15 and report.bio.serum_urea <= 45 %}
+                    <td>{{ report.bio.serum_urea }}</td>
+                {% else %}
+                <td><b>{{ report.bio.serum_urea }}</b></td>
+                {% endif %}
+                <td>mg/dl</td>
+                <td>15-45</td>
+            </tr>
+        {% endif %}
+        {% if report.bio.creatine %}
+            <tr>
+                <td>S. CREATININE</td>
+                <td></td>
+                {% if report.bio.creatine >= 0.5 and report.bio.creatine <= 1.5 %}
+                    <td>{{ report.bio.creatine }}</td>
+                {% else %}
+                <td><b>{{ report.bio.creatine }}</b></td>
+                {% endif %}
+                <td>mg/dl</td>
+                <td>0.5-1.5</td>
+            </tr>
+        {% endif %}
+        {% if report.bio.sodium %}
+            <tr>
+                <td>SODIUM</td>
+                <td></td>
+                {% if report.bio.sodium >= 0.5 and report.bio.sodium <= 1.5 %}
+                    <td>{{ report.bio.sodium }}</td>
+                {% else %}
+                <td><b>{{ report.bio.sodium }}</b></td>
+                {% endif %}
+                <td>mMol/l</td>
+                <td>135-145</td>
+            </tr>
+        {% endif %}
+        {% if report.bio.potassium %}
+            <tr>
+                <td>POTASSIUM</td>
+                <td></td>
+                {% if report.bio.potassium >= 0.5 and report.bio.potassium <= 1.5 %}
+                    <td>{{ report.bio.potassium }}</td>
+                {% else %}
+                <td><b>{{ report.bio.potassium }}</b></td>
+                {% endif %}
+                <td>mMol/l</td>
+                <td>3.5-5.5</td>
+            </tr>
+        {% endif %}
+        {% if report.bio.uric_acid %}
+            <tr>
+                <td>S. URIC ACID</td>
+                <td></td>
+                {% if report.bio.uric_acid >= 2 and report.bio.uric_acid <= 7 %}
+                    <td>{{ report.bio.uric_acid }}</td>
+                {% else %}
+                <td><b>{{ report.bio.uric_acid }}</b></td>
+                {% endif %}
+                <td>mg/dl</td>
+                <td>2-7</td>
+            </tr>
+        {% endif %}
+        {% if report.bio.s_calcium %}
+            <tr>
+                <td>S. CALCIUM</td>
+                <td></td>
+                {% if report.bio.s_calcium >= 8.5 and report.bio.s_calcium <= 11 %}
+                    <td>{{ report.bio.s_calcium }}</td>
+                {% else %}
+                <td><b>{{ report.bio.s_calcium }}</b></td>
+                {% endif %}
+                <td>mg/dl</td>
+                <td>8.5-11</td>
+            </tr>
+        {% endif %}
+    </table>
+{% endif %}
+
+
+
+
+        {% if report.hematology.rbc or report.hematology.wbc or report.hematology.platelets or report.hematology.HB or report.hematology.total_count or report.hematology.differential_count or report.hematology.neutrophils or report.hematology.lymphocytes or report.hematology.monocytes or report.hematology.eosinophils or report.hematology.basophils or report.hematology.ESR or report.hematology.PCV or report.hematology.MCV or report.hematology.MCH or report.hematology.MCHC or report.hematology.MP_MF or report.hematology.blood_group %}
+            <h2><u>HEMATOLOGY</u></h2>
+                <table>
+                <tr>
+                    <th>Test Name</th>
+                    <th></th>
+                    <th>Value</th>
+                    <th>Units</th>
+                    <th>Reference Range</th>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+                {% if report.hematology.total_count %}
+                <tr>
+                    <td colspan="3" style="text-align: left;"><b><u>COMPLETE BLOOD COUNT</u></b></td>
+                </tr>
+                <tr>
+                        <td>TOTAL LEUCOCYTE COUNT</td>
+                        <td></td>
+                        {% if report.hematology.total_count >= 4000 and report.hematology.total_count <= 11000 %}
+                            <td>{{ report.hematology.total_count }}</td>
+                        {% else %}
+                        <td><b>{{ report.hematology.total_count }}</b></td>
+                        {% endif %}
+                        <td>/cumm</td>
+                        <td>4000-11000</td>
+                    </tr>
+                {% endif %}
+
+                {% if report.hematology.neutrophils or  report.hematology.lymphocytes or  report.hematology.monocytes or report.hematology.eosinophils or report.hematology.basophils%}
+                <tr>
+                    <td colspan="3" style="text-align: left;"><b><u>DIFFRENTIAL LEUCOCYTE COUNT</u></b></td>
+                </tr>
+                    {% if report.hematology.neutrophils %}
+                        <tr>
+                            <td>NEUTROPHILS</td>
+                            <td></td>
+                            {% if report.hematology.neutrophils >= 40 and report.hematology.neutrophils <= 70 %}
+                            <td>{{ report.hematology.neutrophils }}</td>
+                            {% else %}
+                            <td><b>{{ report.hematology.neutrophils }}</b></td>
+                            {% endif %}
+                            <td>%</td>
+                            <td>40-70</td>
+                        </tr>
+                    {% endif %}
+                    {% if report.hematology.lymphocytes %}
+                        <tr>
+                            <td>LYMPHOCYTES</td>
+                             <td></td>
+                            {% if report.hematology.lymphocytes >= 20 and report.hematology.lymphocytes <= 45 %}
+                            <td>{{ report.hematology.lymphocytes }}</td>
+                            {% else %}
+                            <td><b>{{ report.hematology.lymphocytes }}</b></td>
+                            {% endif %}
+                            <td>%</td>
+                            <td>20-45</td>
+                        </tr>
+                    {% endif %}
+                    {% if report.hematology.monocytes %}
+                        <tr>
+                            <td>MONOCYTES</td>
+                             <td></td>
+                            {% if report.hematology.monocytes <= 10 %}
+                            <td>{{ report.hematology.monocytes }}</td>
+                            {% else %}
+                            <td><b>{{ report.hematology.monocytes }}</b></td>
+                            {% endif %}
+                            <td>%</td>
+                            <td><10</td>
+                        </tr>
+                    {% endif %}
+                    {% if report.hematology.eosinophils %}
+                        <tr>
+                            <td>EOSINOPHILS</td>
+                             <td></td>
+                            {% if report.hematology.eosinophils >= 1 and report.hematology.eosinophils <= 6 %}
+                            <td>{{ report.hematology.eosinophils }}</td>
+                            {% else %}
+                            <td><b>{{ report.hematology.eosinophils }}</b></td>
+                            {% endif %}
+                            <td>%</td>
+                            <td>1-6</td>
+                        </tr>
+                    {% endif %}
+                    {% if report.hematology.basophils %}
+                        <tr>
+                            <td>BASOPHILS</td>
+                             <td></td>
+                            {% if report.hematology.basophils <= 2 %}
+                            <td>{{ report.hematology.basophils }}</td>
+                            {% else %}
+                            <td><b>{{ report.hematology.basophils }}</b></td>
+                            {% endif %}
+                            <td>%</td>
+                            <td><2</td>
+                        </tr>
+                    {% endif %}
+                {% endif %}
+
+                {% if report.hematology.HB %}
+                        <tr>
+                            <td>HAEMOGLOBIN(Hb)</td>
+                             <td></td>
+                            <td>{% if report.hematology.HB >= 12 and report.hematology.HB <= 16 %}{{ report.hematology.HB }}{% else %}<b>{{ report.hematology.HB }}</b>{% endif %}</td>
+                            <td>gm/dl</td>
+                            <td>12-16</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if report.hematology.RBC %}
+                        <tr>
+                            <td>RBC</td>
+                             <td></td>
+                            <td>{% if report.hematology.RBC >= 4 and report.hematology.RBC <= 5.5 %}{{ report.hematology.RBC }}{% else %}<b>{{ report.hematology.RBC }}</b>{% endif %}</td>
+                            <td>Mill/cumm</td>
+                            <td>4-5.5</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if report.hematology.PCV %}
+                        <tr>
+                            <td>PCV</td>
+                             <td></td>
+                            <td>{% if report.hematology.PCV >= 35 and report.hematology.PCV <= 45 %}{{ report.hematology.PCV }}{% else %}<b>{{ report.hematology.PCV }}</b>{% endif %}</td>
+                            <td>%</td>
+                            <td>35-45</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if report.hematology.MCV %}
+                        <tr>
+                            <td>MCV</td>
+                             <td></td>
+                            <td>{% if report.hematology.MCV >= 75 and report.hematology.MCV <= 100 %}{{ report.hematology.MCV }}{% else %}<b>{{ report.hematology.MCV }}</b>{% endif %}</td>
+                            <td>fl</td>
+                            <td>75-100</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if report.hematology.MCH %}
+                        <tr>
+                            <td>MCH</td>
+                             <td></td>
+                            <td>{% if report.hematology.MCH >= 25 and report.hematology.MCH <= 35 %}{{ report.hematology.MCH }}{% else %}<b>{{ report.hematology.MCH }}</b>{% endif %}</td>
+                            <td>pg</td>
+                            <td>25-35</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if report.hematology.MCHC %}
+                        <tr>
+                            <td>MCHC</td>
+                             <td></td>
+                            <td>{% if report.hematology.MCHC >= 31 and report.hematology.MCHC <= 38 %}{{ report.hematology.MCHC }}{% else %}<b>{{ report.hematology.MCHC }}</b>{% endif %}</td>
+                            <td>%</td>
+                            <td>31-38</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if report.hematology.platelets %}
+                        <tr>
+                            <td>PLATELATES</td>
+                             <td></td>
+                            <td>
+                                {% if report.hematology.platelets >= 1.5 and report.hematology.platelets <= 4.00 %}
+                                    {{ report.hematology.platelets }}
+                                {% else %}
+                                <b>{{ report.hematology.platelets }}</b>
+                                {% endif %}
+                            </td>
+                            <td>lakh/cumm</td>
+                            <td>1.5-4.00</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if report.hematology.ESR %}
+                        <tr>
+                            <td>ESR</td>
+                             <td></td>
+                            {% if report.hematology.ESR >= 0 and report.hematology.ESR <= 20 %}
+                                <td>{{ report.hematology.ESR }}</td>
+                            {% else %}
+                                <td><b>{{ report.hematology.ESR }}</b></td>
+                            {% endif %}
+                            <td>mm/1hrs</td>
+                            <td>0-20</td>
+                        </tr>
+                    {% endif %}
+
+            </table>
+        {% endif %}
+
+
+
+ {% if report.test.bt or report.test.ct or report.test.rdt_for_mp or report.test.blood_group_abo_typing or report.test.blood_group_rh %}
+    <h2><u>OTHER TEST</u></h2>
+    <table>
+        <tr>
+            <th>Test Name</th>
+            <th></th>
+            <th>Value</th>
+            <th>Units</th>
+            <th>Reference Range</th>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        {% if report.test.bt %}
+            <tr>
+                <td>BT (Bleeding Time)</td>
+                <td></td>
+                    {% if report.test.bt >= 2 and report.test.bt <= 7 %}
+                        <td>{{ report.test.bt }}</td>
+                    {% else %}
+                        <td><b>{{ report.test.bt }}</b></td>
+                    {% endif %}
+                <td>minutes</td>
+                <td>2-7</td>
+            </tr>
+        {% endif %}
+        {% if report.test.ct %}
+            <tr>
+                <td>CT (Clotting Time)</td>
+                <td></td>
+                <td>
+                {% if report.test.ct >= 5 and report.test.ct <= 12 %}
+                    {{ report.test.ct }}
+                {% else %}
+                    <b>{{ report.test.ct }}</b>
+                {% endif %}
+                </td>
+                <td>minutes</td>
+                <td>5-11</td>
+            </tr>
+        {% endif %}
+        {% if report.test.rdt_for_mp %}
+            <tr>
+                <td>RDT FOR MALARIA</td>
+                <td></td>
+                <td>{{ report.test.rdt_for_mp }}</td>
+                <td></td>
+                <td> </td>
+            </tr>
+        {% endif %}
+
+        {% if report.test.blood_group_abo_typing or report.test.blood_group_rh %}
+            {% if report.test.blood_group_abo_typing%}
+                <tr>
+                    <td colspan="3" style="text-align: left;"><h3><u>BLOOD GROUP</u></h3></td>
+                </tr>
+                <tr>
+                    <td>ABO Typing</td>
+                    <td></td>
+                    <td>{{ report.test.get_blood_group_abo_typing_display }}</td>
+                    <td></td>
+                    <td> </td>
+                </tr>
+            {% endif %}
+            {% if report.test.blood_group_rh %}
+                <tr>
+                    <td>Rh Typing</td>
+                    <td></td>
+                    <td>{{ report.test.get_blood_group_rh_display }}</td>
+                    <td></td>
+                    <td> </td>
+                </tr>
+            {% endif %}
+        {% endif %}
+    </table>
+{% endif %}
+
+
+
+{% if report.stool.color or report.stool.consistency or report.stool.blood or report.stool.mucus or report.stool.pus_cells or report.stool.rbc or report.stool.ova or report.stool.cyst or report.stool.worm or report.stool.fat_globules or report.stool.yeast_cells or report.stool.undigested_food_particles or report.stool.others %}
+<h2><u>STOOL RE/ME</u></h2>
+<table>
+<tr>
+    <th>Test Name</th>
+    <th></th>
+    <th>Value</th>
+    <th>Units</th>
+    <th>Reference Range</th>
+</tr>
+<tr>
+    <td></td>
+</tr>
+{% if report.stool.color %}
+    <tr>
+        <td>COLOUR</td>
+        <td></td>
+        <td>{{ report.stool.color }}</td>
+        <td></td>
+        <td></td>
+    </tr>
+{% endif %}
+    {% if report.stool.consistency %}
+        <tr>
+            <td>CONSISTENCY</td>
+            <td></td>
+            <td>{{ report.stool.consistency }}</td>
+            <td></td>
+            <td></td>
+        </tr>
+    {% endif %}
+    {% if report.stool.blood %}
+        <tr>
+            <td>BLOOD</td>
+            <td></td>
+            <td>{{ report.stool.blood }}</td>
+            <td></td>
+            <td></td>
+        </tr>
+    {% endif %}
+    {% if report.stool.mucus %}
+        <tr>
+            <td>MUCUS</td>
+            <td></td>
+            <td>{{ report.stool.mucus }}</td>
+            <td></td>
+            <td></td>
+        </tr>
+    {% endif %}
+    {% if report.stool.pus_cells %}
+        <tr>
+            <td>PUS CELLS</td>
+            <td></td>
+            <td>{{ report.stool.pus_cells }}</td>
+            <td>/HPF</td>
+            <td></td>
+        </tr>
+    {% endif %}
+    {% if report.stool.rbc %}
+        <tr>
+            <td>RBC</td>
+            <td></td>
+            <td>{{ report.stool.rbc }}</td>
+            <td>/HPF</td>
+            <td></td>
+        </tr>
+    {% endif %}
+    {% if report.stool.ova %}
+        <tr>
+            <td>OVA</td>
+            <td></td>
+            <td>{{ report.stool.ova }}</td>
+            <td>/HPF</td>
+            <td></td>
+        </tr>
+    {% endif %}
+    {% if report.stool.cyst %}
+        <tr>
+            <td>CYST</td>
+            <td></td>
+            <td>{{ report.stool.cyst }}</td>
+            <td>/HPF</td>
+            <td></td>
+        </tr>
+    {% endif %}
+    {% if report.stool.worm %}
+        <tr>
+            <td>WORM</td>
+            <td></td>
+            <td>{{ report.stool.worm }}</td>
+            <td>/HPF</td>
+            <td></td>
+        </tr>
+    {% endif %}
+    {% if report.stool.fat_globules %}
+        <tr>
+            <td>FAT GLOBULES</td>
+            <td></td>
+            <td>{{ report.stool.fat_globules }}</td>
+            <td>/HPF</td>
+            <td></td>
+        </tr>
+    {% endif %}
+    {% if report.stool.yeast_cells %}
+        <tr>
+            <td>YEAST CELLS</td>
+            <td></td>
+            <td>{{ report.stool.yeast_cells }}</td>
+            <td>/HPF</td>
+            <td></td>
+        </tr>
+    {% endif %}
+    {% if report.stool.undigested_food_particles %}
+        <tr>
+            <td>U. FOOD PARTICLES</td>
+            <td></td>
+            <td>{{ report.stool.undigested_food_particles }}</td>
+            <td>/HPF</td>
+            <td></td>
+        </tr>
+    {% endif %}
+    {% if report.stool.others %}
+        <tr>
+            <td>OTHERS</td>
+            <td></td>
+            <td>{{ report.stool.others }}</td>
+            <td>/HPF</td>
+            <td></td>
+        </tr>
+    {% endif %}
+</table>
+{% endif %}
+
+
+        {% if report.urine.color or report.urine.appearance or report.urine.reaction or report.urine.sugar or report.urine.protein or report.urine.rbc or report.urine.pus_cells or report.urine.epithelial_cells or report.urine.calcium_oxalates or report.urine.crystals or report.urine.casts or report.urine.bacteria or report.urine.others %}
+            <h2><u>URINE RE/ME</u></h2>
+            <table>
+                <tr>
+                    <th>Test Name</th>
+                    <th></th>
+                    <th>Value</th>
+                    <th>Units</th>
+                    <th>Reference Range</th>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+                {% if report.urine.color %}
+                    <tr>
+                        <td>COLOUR</td>
+                        <td></td>
+                        <td>{{ report.urine.get_color_display }}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+                {% if report.urine.appearance %}
+                    <tr>
+                        <td>APPREANCE</td>
+                        <td></td>
+                        <td>{{ report.urine.get_appearance_display }}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+                {% if report.urine.reaction %}
+                    <tr>
+                        <td>REACTION</td>
+                        <td></td>
+                        <td>{{ report.urine.get_reaction_display }}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+                {% if report.urine.sugar %}
+                    <tr>
+                        <td>SUGAR</td>
+                        <td></td>
+                        <td>{{ report.urine.get_sugar_display }}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+                {% if report.urine.protein %}
+                    <tr>
+                        <td>PROTEIN</td>
+                        <td></td>
+                        <td>{{ report.urine.get_protein_display }}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+                {% if report.urine.rbc %}
+                    <tr>
+                        <td>RBC</td>
+                        <td></td>
+                        <td>{{ report.urine.rbc }}</td>
+                        <td>/HPF</td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+                {% if report.urine.pus_cells %}
+                    <tr>
+                        <td>PUS CELLS</td>
+                        <td></td>
+                        <td>{{ report.urine.pus_cells }}</td>
+                        <td>/HPF</td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+                {% if report.urine.epithelial_cells %}
+                    <tr>
+                        <td>EPITHELIAL CELLS</td>
+                        <td></td>
+                        <td>{{ report.urine.epithelial_cells }}</td>
+                        <td>/HPF</td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+                {% if report.urine.calcium_oxalates %}
+                    <tr>
+                        <td>CALCIUM OXALATES</td>
+                        <td></td>
+                        <td>{{ report.urine.calcium_oxalates }}</td>
+                        <td>/HPF</td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+                {% if report.urine.crystals %}
+                    <tr>
+                        <td>CRYSTALS</td>
+                        <td></td>
+                        <td>{{ report.urine.crystals }}</td>
+                        <td>/HPF</td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+                {% if report.urine.casts %}
+                    <tr>
+                        <td>CASTS</td>
+                        <td></td>
+                        <td>{{ report.urine.casts }}</td>
+                        <td>/HPF</td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+                {% if report.urine.bacteria %}
+                    <tr>
+                        <td>BACTERIA</td>
+                        <td></td>
+                        <td>{{ report.urine.bacteria }}</td>
+                        <td>/HPF</td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+                {% if report.urine.others %}
+                    <tr>
+                        <td>OTHERS</td>
+                        <td></td>
+                        <td>{{ report.urine.others }}</td>
+                        <td>/HPF</td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+            </table>
+        {% endif %}
+
+
+        
+
+{% if report.lipid.triglyceride or report.lipid.t_cholesterol or report.lipid.hdl_cholesterol or report.lipid.ldl_cholesterol or report.lipid.vldl_cholesterol %}
+<h2><u>LIPID PROFILE</u></h2>
+<table>
+    <tr>
+        <th>Test Name</th>
+        <th></th>
+        <th>Value</th>
+        <th>Units</th>
+        <th>Reference Range</th>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+    {% if report.lipid.triglyceride %}
+        <tr>
+            <td>TRIGLYCERIDE</td>
+            <td></td>
+            {% if report.lipid.triglyceride <= 200 %}
+            <td>{{ report.lipid.triglyceride }}</td>
+            {% else %}
+            <td><b>{{ report.lipid.triglyceride }}</b></td>
+            {% endif %}
+            <td>mg/dl</td>
+            <td><200</td>
+        </tr>
+    {% endif %}
+    {% if report.lipid.t_cholesterol %}
+        <tr>
+            <td>TOTAL CHOLESTEROL</td>
+            <td></td>
+            {% if report.lipid.t_cholesterol <= 200 %}
+            <td>{{ report.lipid.t_cholesterol }}</td>
+            {% else %}
+            <td><b>{{ report.lipid.t_cholesterol }}</b></td>
+            {% endif %}
+            <td>mg/dl</td>
+            <td><200</td>
+        </tr>
+    {% endif %}
+    {% if report.lipid.hdl_cholesterol %}
+        <tr>
+            <td>HDL CHOLESTEROL</td>
+            <td></td>
+            {% if report.lipid.hdl_cholesterol >= 30 and report.lipid.hdl_cholesterol <= 70 %}
+            <td>{{ report.lipid.hdl_cholesterol }}</td>
+            {% else %}
+            <td><b>{{ report.lipid.hdl_cholesterol }}</b></td>
+            {% endif %}
+            <td>mg/dl</td>
+            <td>30-70</td>
+        </tr>
+    {% endif %}
+    {% if report.lipid.ldl_cholesterol %}
+        <tr>
+            <td>LDL CHOLESTEROL</td>
+            <td></td>
+            {% if report.lipid.ldl_cholesterol <= 150 %}
+            <td>{{ report.lipid.ldl_cholesterol }}</td>
+            {% else %}
+            <td><b>{{ report.lipid.ldl_cholesterol }}</b></td>
+            {% endif %}
+            <td>mg/dl</td>
+            <td><150</td>
+        </tr>
+    {% endif %}
+    {% if report.lipid.vldl_cholesterol %}
+        <tr>
+            <td>VLDL CHOLESTEROL</td>
+            <td></td>
+            {% if report.lipid.vldl_cholesterol >= 3 and report.lipid.vldl_cholesterol <= 32 %}
+            <td>{{ report.lipid.vldl_cholesterol }}</td>
+            {% else %}
+            <td><b>{{ report.lipid.vldl_cholesterol }}</b></td>
+            {% endif %}
+            <td>mg/dl</td>
+            <td>3-32</td>
+        </tr>
+    {% endif %}
+</table>
+{% endif %}
+
+
+
+
+
+
+        {% if report.liver.total_bilirubin or report.liver.indirect or report.liver.direct or report.liver.sgpt or report.liver.sgot or report.liver.alkaline_phosphatase or report.liver.total_protein or report.liver.a_g_ratio or report.liver.serum_albumin %}
+    <h2><u>LIVER FUNCTION TEST</u></h2>
+    <table>
+        <tr>
+            <th>Test Name</th>
+            <th></th>
+            <th>Result</th>
+            <th>Units</th>
+            <th>Reference Range</th>
+        </tr>
+            <tr>
+                <td></td>
+            </tr>
+            {% if report.liver.total_bilirubin %}
+                <tr>
+                    <td>TOTAL BILLIRUBIN</td>
+                    <td></td>
+                    <td>
+                        {% if report.liver.total_bilirubin >= 0.1 and report.liver.total_bilirubin <= 1.0 %}
+                            {{ report.liver.total_bilirubin }}
+                        {% else %}
+                            <b>{{ report.liver.total_bilirubin }}</b>
+                        {% endif %}
+                    </td>
+                    <td>mg/dl</td>
+                    <td>0.1-1.0</td>
+                </tr>
+            {% endif %}
+        
+            {% if report.liver.direct %}
+                <tr>
+                    <td>DIRECT BILLIRUBIN</td>
+                    <td></td>
+                    <td>
+                        {% if report.liver.direct >= 0.1 and report.liver.direct <= 0.4 %}
+                            {{ report.liver.direct }}
+                        {% else %}
+                            <b>{{ report.liver.direct }}</b>
+                        {% endif %}
+                    </td>
+                    <td>mg/dl</td>
+                    <td>0.1-0.4</td>
+                </tr>
+            {% endif %}
+            {% if report.liver.indirect %}
+                <tr>
+                    <td>INDIRECT BILLIRUBIN</td>
+                    <td></td>
+                    <td>
+                        {% if report.liver.indirect >= 0.1 and report.liver.indirect <= 0.4 %}
+                            {{ report.liver.indirect }}
+                        {% else %}
+                            <b>{{ report.liver.indirect }}</b>
+                        {% endif %}
+                    </td>
+                    <td>mg/dl</td>
+                    <td>0.1-0.4</td>
+                </tr>
+            {% endif %}
+        
+            {% if report.liver.sgpt %}
+                <tr>
+                    <td>SGPT (ALT)</td>
+                    <td></td>
+                    <td>
+                        {% if report.liver.sgpt <= 35 %}
+                            {{ report.liver.sgpt }}
+                        {% else %}
+                            <b>{{ report.liver.sgpt }}</b>
+                        {% endif %}
+                    </td>
+                    <td>U/L</td>
+                    <td><35</td>
+                </tr>
+            {% endif %}
+        
+            {% if report.liver.sgot %}
+                <tr>
+                    <td>SGOT (AST)</td>
+                    <td></td>
+                    <td>
+                        {% if report.liver.sgot <= 40 %}
+                            {{ report.liver.sgot }}
+                        {% else %}
+                            <b>{{ report.liver.sgot }}</b>
+                        {% endif %}
+                    </td>
+                    <td>U/L</td>
+                    <td><40</td>
+                </tr>
+            {% endif %}
+        
+            {% if report.liver.alkaline_phosphatase %}
+                <tr>
+                    <td>ALKALINE PHOSPHATASE</td>
+                    <td></td>
+                    <td>
+                        {% if report.liver.alkaline_phosphatase <= 306 %}
+                            {{ report.liver.alkaline_phosphatase }}
+                        {% else %}
+                            <b>{{ report.liver.alkaline_phosphatase }}</b>
+                        {% endif %}
+                    </td>
+                    <td>U/L</td>
+                    <td><306</td>
+                </tr>
+            {% endif %}
+        
+            {% if report.liver.total_protein %}
+                <tr>
+                    <td>TOTAL PROTEIN</td>
+                    <td></td>
+                    <td>
+                        {% if report.liver.total_protein >= 66 and report.liver.total_protein <= 87 %}
+                            {{ report.liver.total_protein }}
+                        {% else %}
+                            <b>{{ report.liver.total_protein }}</b>
+                        {% endif %}
+                    </td>
+                    <td>gm/l</td>
+                    <td>66-87</td>
+                </tr>
+            {% endif %}
+        
+            {% if report.liver.serum_albumin %}
+                <tr>
+                    <td>SERUM ALBUMIN</td>
+                    <td></td>
+                    <td>
+                        {% if report.liver.serum_albumin >= 38 and report.liver.serum_albumin <= 51 %}
+                            {{ report.liver.serum_albumin }}
+                        {% else %}
+                            <b>{{ report.liver.serum_albumin }}</b>
+                        {% endif %}
+                    </td>
+                    <td>gm/l</td>
+                    <td>38-51</td>
+                </tr>
+            {% endif %}
+        
+            {% if report.liver.globulin %}
+                <tr>
+                    <td>GLOBULIN</td>
+                    <td></td>
+                    <td>
+                        {% if report.liver.globulin >= 20 and report.liver.globulin <= 39 %}
+                            {{ report.liver.globulin }}
+                        {% else %}
+                            <b>{{ report.liver.globulin }}</b>
+                        {% endif %}
+                    </td>
+                    <td>gm/l</td>
+                    <td>20-39</td>
+                </tr>
+            {% endif %}
+        
+            {% if report.liver.a_g_ratio %}
+                <tr>
+                    <td>A/G RATIO</td>
+                    <td></td>
+                    <td>
+                        {% if report.liver.a_g_ratio >= 1.2 and report.liver.a_g_ratio <= 1.8 %}
+                            {{ report.liver.a_g_ratio }}
+                        {% else %}
+                            <b>{{ report.liver.a_g_ratio }}</b>
+                        {% endif %}
+                    </td>
+                    <td>gm/l</td>
+                    <td>1.2-1.8</td>
+                </tr>
+            {% endif %}
+    </table>
+{% endif %}
+
+
+
+
+{% if report.sero.hbsag or report.sero.hiv_1_2_ab or report.sero.vdrl_rpr or report.sero.hiv_i_ii or report.sero.hcv or report.sero.crp or report.sero.aso or report.sero.ra or report.sero.typhoid_igg_igm or report.sero.dengue_ns1_ag or report.sero.dengue_igg_igm or report.sero.scrub_typhus_igg_igm or report.sero.h_pylori_igg_igm or report.sero.sputum_for_afb_i or report.sero.sputum_for_afb_ii or report.sero.mantoux or report.sero.diameter_after_48_72_hrs or report.widal.anti_o or report.widal.anti_h or report.widal.anti_ah or report.widal.anti_bh %}
+    <h2><u>SEROLOGY REPORT</u></h2>
+    <table>
+        <tr>
+            <th>Test Name</th>
+            <th></th>
+            <th>Result</th>
+            <th>Units</th>
+            <th>Reference Range</th>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        {% if report.sero.hiv_1_2_ab %}
+            <tr>
+                <td>HIV I/II</td>
+                <td></td>
+                <td>{{ report.sero.get_hiv_1_2_ab_display }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+
+        {% if report.sero.hbsag %}
+            <tr>
+                <td>HBsAg</td>
+                <td></td>
+                <td>{{ report.sero.get_hbsag_display }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+        {% if report.sero.vdrl_rpr %}
+            <tr>
+                <td>VDRL</td>
+                <td></td>
+                <td>{{ report.sero.get_vdrl_rpr_display }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+        {% if report.sero.hcv %}
+            <tr>
+                <td>HCV</td>
+                <td></td>
+                <td>{{ report.sero.get_hcv_display }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+        {% if report.sero.crp %}
+            <tr>
+                <td>C-Reactive Protein</td>
+                <td></td>
+                <td>{{ report.sero.get_crp_display }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+        {% if report.sero.aso %}
+            <tr>
+                <td>ASO</td>
+                <td></td>
+                <td>{{ report.sero.get_aso_display }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+        {% if report.sero.ra %}
+            <tr>
+                <td>RA-FACTOR</td>
+                <td></td>
+                <td>{{ report.sero.get_ra_display }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+        {% if report.sero.typhoid_igg_igm %}
+            <tr>
+                <td>TYPHOID IgG/IgM</td>
+                <td></td>
+                <td>{{ report.sero.get_typhoid_igg_igm_display }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+        {% if report.sero.dengue_ns1_ag %}
+            <tr>
+                <td>DENGUE NS1 Ag</td>
+                <td></td>
+                <td>{{ report.sero.get_dengue_ns1_ag_display }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+        {% if report.sero.dengue_igg_igm %}
+            <tr>
+                <td>DENGUE IgG/IgM</td>
+                <td></td>
+                <td>{{ report.sero.get_dengue_igg_igm_display }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+        {% if report.sero.scrub_typhus_igg_igm %}
+            <tr>
+                <td>SCRUB TYPHUS IgG/IgM</td>
+                <td></td>
+                <td>{{ report.sero.get_scrub_typhus_igg_igm_display }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+        {% if report.sero.h_pylori_igg_igm %}
+            <tr>
+                <td>H. PYLORI IgG/IgM</td>
+                <td></td>
+                <td>{{ report.sero.get_h_pylori_igg_igm_display }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+        {% if report.sero.sputum_for_afb_i %}
+            <tr>
+                <td>SPUTUM FOR AFB I</td>
+                <td></td>
+                <td>{{ report.sero.sputum_for_afb_i }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+        {% if report.sero.sputum_for_afb_ii %}
+            <tr>
+                <td>SPUTUM FORAFB II</td>
+                <td></td>
+                <td>{{ report.sero.sputum_for_afb_ii }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+        {% if report.sero.mantoux %}
+            <tr>
+                <td>MANTOUX</td>
+                <td></td>
+                <td>{{ report.sero.mantoux }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+        {% if report.sero.diameter_after_48_72_hrs %}
+            <tr>
+                <td>DIAMETER AFTER 48-72 HRS</td>
+                <td></td>
+
+                <td>{{ report.sero.diameter_after_48_72_hrs }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+
+        {% if report.widal.anti_o or report.widal.anti_h or report.widal.anti_ah or report.widal.anti_bh %}
+
+        <tr>
+            <td colspan="3" style="text-align: left;"><h3><u>WIDAL</u></h3></td>
+        </tr>
+
+                {% if report.widal.anti_o %}
+                    <tr>
+                        <td>S. TYPHI 'O'</td>
+                        <td></td>
+                        <td>
+                            {% if report.widal.anti_o == "1:160" or report.widal.anti_o == "1:320" %}
+                            <b>{{ report.widal.get_anti_o_display }}</b>
+                            {% else %}
+                            {{ report.widal.get_anti_o_display }}
+                            {% endif %}   
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+                {% if report.widal.anti_h %}
+                    <tr>
+                        <td>S. TYPHI 'H'</td>
+                        <td></td>
+                        <td>
+                            
+                            {% if report.widal.anti_h == "1:160" or report.widal.anti_h == "1:320" %}
+                            <b>{{ report.widal.get_anti_h_display }}</b>
+                            {% else %}
+                            {{ report.widal.get_anti_h_display }}
+                            {% endif %}
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+                {% if report.widal.anti_ah %}
+                    <tr>
+                        
+                        <td>S. PARATYPHI 'AH'</td>
+                        <td></td>
+                        <td>{{ report.widal.get_anti_ah_display }}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+                {% if report.widal.anti_bh %}
+                    <tr>
+                        <td>S. PARATYPHI 'BH'</td>
+                        <td></td>
+                        <td>{{ report.widal.get_anti_bh_display }}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+        {% endif %}
+    </table>
+{% endif %}
+
+<b>*****End Of Reports****</b>
+
+
+            <table>
+                <tr>
+                </tr>
+                    <tr>
+                        <td><b>.......................................................</b></td>
+                        <td></td>
+                        <td></td>
+                        <td><b>.......................................................</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>MEDICAL LAB TECHNICIAN        </b></td>
+                        <td></td>
+                        <td></td>
+                        <td><b>MEDICAL LAB TECHNICIAN        </b></td>
+                    </tr>
+                    <tr>
+                        <td><b>NHPC NO:                      </b></td>
+                        <td></td>
+                        <td></td>
+                        <td><b>NHPC NO:B-4714MLT             </b></td>
+                    </tr>
+            </table>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

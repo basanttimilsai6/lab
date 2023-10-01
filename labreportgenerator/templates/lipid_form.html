@@ -1,0 +1,26 @@
+
+        <div class="form-group row">
+            <label for="{{ lipid_form.triglyceride.id_for_label }}" class="col-md-3 col-form-label">Triglyceride:</label>
+            <div class="col-md-9">
+                {{ lipid_form.triglyceride }}
+                <small class="form-text text-muted">(<200) mg/dL</small>
+            </div>
+        </div>
+
+        <!-- Add Total Cholesterol field -->
+        <div class="form-group row">
+            <label for="{{ lipid_form.t_cholesterol.id_for_label }}" class="col-md-3 col-form-label">T. Cholesterol:</label>
+            <div class="col-md-9">
+                {{ lipid_form.t_cholesterol }}
+                <small class="form-text text-muted">(<200) mg/dL</small>
+            </div>
+        </div>
+
+        <!-- Add HDL-Cholesterol field -->
+        <div class="form-group row">
+            <label for="{{ lipid_form.hdl_cholesterol.id_for_label }}" class="col-md-3 col-form-label">HDL-Cholesterol:</label>
+            <div class="col-md-9">
+                {{ lipid_form.hdl_cholesterol }}
+                <small class="form-text text-muted">(30-70) mg/dL</small>
+            </div>
+        </div>
